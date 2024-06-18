@@ -1,0 +1,28 @@
+[tool.poetry]
+name = "sendos-ai"
+version = "0.1.0"
+description = ""
+authors = ["Anthony Diaz <anthony.gdmou@gmail.com>"]
+readme = "README.md"
+packages = [{include = "sendos"}]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+fastapi = "^0.111.0"
+sqlmodel = "^0.0.19"
+sqlalchemy = "^2.0.30"
+asyncpg = "^0.29.0"
+uvicorn = "^0.30.1"
+python-dotenv = "^1.0.1"
+pyjwt = "^2.8.0"
+requests = "^2.32.3"
+psycopg2-binary = "^2.9.9"
+pydantic-settings = "^2.3.3"
+
+
+[tool.poetry.dev-dependencies]
+flake8 = "^7.1.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
