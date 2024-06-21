@@ -1,0 +1,46 @@
+# SendosAI
+services:
+  sendos-service:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    hostname: sendos
+    container_name: sendos
+    depends_on:
+      - sendo_postgres
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env
+    volumes:
+      - ./:/home/sendos
+    networks:
+      - sendos-net
+  ################ Data Bases ################
+  sendo_postgres:
+    image: postgres:14.3-alpine
+    hostname: sendo_postgres
+    container_name: sendo_postgres
+    restart: on-failure
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=sendosai
+    ports:
+      - "5434:5434"
+    volumes:
+      - sendo-db-postgres:/var/lib/postgresql/data
+      - ./sql/create_tables.sql:/docker-entrypoint-initdb.d/create_tables.sql
+    networks:
+      - sendos-net
+    expose:
+      - 5434
+    command: -p 5434
+################ Volumes ################
+volumes:
+  sendo-db-postgres:
+    driver: local
+################ Networks ################
+networks:
+  sendos-net:
+    external: true

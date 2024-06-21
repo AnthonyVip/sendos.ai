@@ -5,7 +5,9 @@ from starlette.middleware.cors import CORSMiddleware
 
 from routes.errors.http_error import http_error_handler
 from routes.errors.validation_error import http422_error_handler
+from routes.router import api_router
 from core.settings import settings
+from db.sessions import create_models
 
 
 def get_application() -> FastAPI:
@@ -37,6 +39,8 @@ def get_application() -> FastAPI:
         RequestValidationError,
         http422_error_handler
     )
+
+    application.include_router(api_router, prefix=settings.api_prefix)
 
     return application
 

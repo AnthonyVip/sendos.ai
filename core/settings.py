@@ -19,7 +19,7 @@ class EnvironmentEnum(str, Enum):
 class GlobalConfig(BaseSettings):
     title: str = "Celes API"
     docs_url: str = "/docs"
-    description: str = "This is the Celes API"
+    description: str = "This is the Sendos API"
     version: str = "1.0.0"
     openapi_url: str = "/openapi.json"
     redoc_url: str = "/redoc"
@@ -34,6 +34,16 @@ class GlobalConfig(BaseSettings):
     jwt_subject: str = os.environ.get("JWT_SUBJECT")
     algorithm: str = os.environ.get("ALGORITHM")
     access_token_expire_minutes: int = os.environ.get("ACCESS_TOKEN_EXPIRE_MINUTES")  # noqa: E501
+
+    postgres_user: str = os.environ.get("POSTGRES_USER")
+    postgres_password: str = os.environ.get("POSTGRES_PASSWORD")
+    postgres_port: int = int(os.environ.get("POSTGRES_PORT"))
+    postgres_server: str = os.environ.get("POSTGRES_SERVER")
+    postgres_db: str = os.environ.get("POSTGRES_DB")
+
+    @property
+    def database_url(self) -> str:
+        return f"postgresql+asyncpg://{self.postgres_user}:{self.postgres_password}@{self.postgres_server}:{self.postgres_port}/{self.postgres_db}"
 
     class Config:
         case_sensitive = True
