@@ -6,6 +6,7 @@ from db.repositories.inventory import InventoryRepository
 from routes.dependencies.database import get_repository
 from schemas.items import ItemPut, ItemResponse
 from db.tables.items import ItemBase
+from decorators.auth import get_current_user
 
 
 router = APIRouter()
@@ -16,6 +17,7 @@ async def get_items(
     repository: InventoryRepository = Depends(
         get_repository(InventoryRepository)
     ),
+    user: dict = Depends(get_current_user),
     offset: int = 0,
     limit: int = Query(default=100, lte=100),
 ):
@@ -28,6 +30,7 @@ async def get_item_by_id(
     repository: InventoryRepository = Depends(
         get_repository(InventoryRepository)
     ),
+    user: dict = Depends(get_current_user)
 ):
     item = await repository.get_by_id(id)
 
@@ -44,6 +47,7 @@ async def update_item(
     repository: InventoryRepository = Depends(
         get_repository(InventoryRepository)
     ),
+    user: dict = Depends(get_current_user)
 ):
     item_db = await repository.update(id, item)
 
@@ -59,6 +63,7 @@ async def create_item(
     repository: InventoryRepository = Depends(
         get_repository(InventoryRepository)
     ),
+    user: dict = Depends(get_current_user)
 ):
     return await repository.create(item)
 
@@ -69,5 +74,6 @@ async def delete_item(
     repository: InventoryRepository = Depends(
         get_repository(InventoryRepository)
     ),
+    user: dict = Depends(get_current_user)
 ):
     return await repository.delete(id)

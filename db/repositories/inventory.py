@@ -1,6 +1,6 @@
 from uuid import UUID
 from fastapi import HTTPException, status
-from sqlmodel import Session, create_engine, select
+from sqlmodel import create_engine, select
 from sqlmodel.ext.asyncio.session import AsyncSession
 from typing import List, Union
 

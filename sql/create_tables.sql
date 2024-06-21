@@ -23,3 +23,30 @@ CREATE INDEX IF NOT EXISTS ix_items_id
     ON public.items USING btree
     (id ASC NULLS LAST)
     TABLESPACE pg_default;
+
+
+CREATE TABLE IF NOT EXISTS public.users
+(
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    id uuid NOT NULL,
+    email character varying COLLATE pg_catalog."default",
+    status character varying COLLATE pg_catalog."default" NOT NULL,
+    password bytea,
+    last_login timestamp without time zone,
+    CONSTRAINT users_pkey PRIMARY KEY (id),
+    CONSTRAINT users_email_key UNIQUE (email)
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE IF EXISTS public.users
+    OWNER to postgres;
+-- Index: ix_users_id
+
+-- DROP INDEX IF EXISTS public.ix_users_id;
+
+CREATE INDEX IF NOT EXISTS ix_users_id
+    ON public.users USING btree
+    (id ASC NULLS LAST)
+    TABLESPACE pg_default;

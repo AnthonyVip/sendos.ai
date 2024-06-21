@@ -1,21 +1,6 @@
-import uuid
-from datetime import datetime
-from pydantic import BaseModel, condecimal
+from pydantic import condecimal
 from sqlmodel import Field, SQLModel
-
-
-class UUIDModel(BaseModel):
-    id: uuid.UUID = Field(
-        default_factory=uuid.uuid4,
-        primary_key=True,
-        index=True,
-        nullable=False,
-    )
-
-
-class TimeStampedModel(SQLModel):
-    created_at: datetime = Field(default_factory=datetime.utcnow)
-    updated_at: datetime = Field(default_factory=datetime.utcnow)
+from db.tables.base import UUIDModel, TimeStampedModel
 
 
 class ItemBase(SQLModel):
