@@ -21,7 +21,11 @@ class InventoryRepository:
         offset: int = 0,
         limit: int = 100,
     ) -> List[ItemResponse]:
-        query = select(Item).where(Item.status == "active").offset(offset).limit(limit)
+        query = select(
+            Item
+        ).where(
+            Item.status == "active"
+        ).offset(offset).limit(limit)
 
         results = await self.session.exec(query)
 
@@ -44,7 +48,10 @@ class InventoryRepository:
 
         return item_db
 
-    async def update(self, id: Union[UUID, str], item: ItemPut) -> ItemResponse:
+    async def update(
+        self, id: Union[UUID, str],
+        item: ItemPut
+    ) -> ItemResponse:
         item_db = await self.session.get(Item, id)
 
         if not item_db:

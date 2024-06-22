@@ -57,7 +57,11 @@ async def update_item(
     return item_db
 
 
-@router.post("/items", response_model=ItemResponse)
+@router.post(
+    "/items",
+    response_model=ItemResponse,
+    status_code=status.HTTP_201_CREATED
+)
 async def create_item(
     item: ItemBase = Body(...),
     repository: InventoryRepository = Depends(

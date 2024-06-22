@@ -43,7 +43,12 @@ class GlobalConfig(BaseSettings):
 
     @property
     def database_url(self) -> str:
-        return f"postgresql+asyncpg://{self.postgres_user}:{self.postgres_password}@{self.postgres_server}:{self.postgres_port}/{self.postgres_db}"
+        return (
+            "postgresql+asyncpg://"
+            f"{self.postgres_user}:{self.postgres_password}@"
+            f"{self.postgres_server}:{self.postgres_port}/"
+            f"{self.postgres_db}"
+        )
 
     class Config:
         case_sensitive = True

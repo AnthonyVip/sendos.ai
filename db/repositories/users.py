@@ -1,6 +1,3 @@
-from typing import List, Union
-from uuid import UUID
-
 from fastapi import HTTPException
 from fastapi import status as http_status
 from sqlmodel import select, create_engine

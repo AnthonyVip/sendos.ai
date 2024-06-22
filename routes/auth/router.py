@@ -13,7 +13,11 @@ router = APIRouter()
 token = Token()
 
 
-@router.post("/create", response_model=UserResponse)
+@router.post(
+    "/create",
+    status_code=status.HTTP_201_CREATED,
+    response_model=UserResponse
+)
 async def create_user(
     user: UserCreate = Body(...),
     repository: UsersRepository = Depends(get_repository(UsersRepository)),
